@@ -51,6 +51,8 @@ import org.thingsboard.server.gen.edge.v1.DownlinkMsg;
 import org.thingsboard.server.gen.edge.v1.DownlinkResponseMsg;
 import org.thingsboard.server.gen.edge.v1.EdgeConfiguration;
 import org.thingsboard.server.gen.edge.v1.UplinkResponseMsg;
+import org.thingsboard.server.queue.discovery.HashPartitionService;
+import org.thingsboard.server.queue.util.TbCoreComponent;
 import org.thingsboard.server.service.cloud.rpc.CloudEventStorageSettings;
 import org.thingsboard.server.service.cloud.rpc.processor.CustomerCloudProcessor;
 import org.thingsboard.server.service.cloud.rpc.processor.EdgeCloudProcessor;
@@ -69,8 +71,9 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
-@Service
 @Slf4j
+@Service
+@TbCoreComponent
 public class CloudManagerService {
 
     private static final String QUEUE_START_TS_ATTR_KEY = "queueStartTs";
@@ -151,6 +154,7 @@ public class CloudManagerService {
 
     private TenantId tenantId;
     private CustomerId customerId;
+    @Autowired private HashPartitionService hashPartitionService;
 
     @EventListener(ApplicationReadyEvent.class)
     public void onApplicationEvent(ApplicationReadyEvent event) {

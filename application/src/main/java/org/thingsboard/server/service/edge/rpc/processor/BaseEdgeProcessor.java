@@ -134,7 +134,6 @@ import org.thingsboard.server.service.profile.TbAssetProfileCache;
 import org.thingsboard.server.service.profile.TbDeviceProfileCache;
 import org.thingsboard.server.service.rpc.TbCoreDeviceRpcService;
 import org.thingsboard.server.service.state.DefaultDeviceStateService;
-import org.thingsboard.server.service.state.DeviceStateService;
 import org.thingsboard.server.service.telemetry.TelemetrySubscriptionService;
 
 import java.util.ArrayList;
@@ -221,9 +220,6 @@ public abstract class BaseEdgeProcessor {
     protected TbClusterService tbClusterService;
 
     @Autowired
-    protected DeviceStateService deviceStateService;
-
-    @Autowired
     protected EdgeEventService edgeEventService;
 
     @Autowired
@@ -248,7 +244,7 @@ public abstract class BaseEdgeProcessor {
     @Autowired
     protected ApiUsageStateService apiUsageStateService;
 
-    @Autowired
+    @Autowired(required = false)
     protected TbQueueService tbQueueService;
 
     @Autowired
